@@ -7,7 +7,7 @@ variable "appledb_test_path" {
 
 data "ipsw" "bigsur" {
   os = "macOS"
-  version = "~13"
+  version = "^13"
   device = "VirtualMac2,1"
 
   offline = true
@@ -16,7 +16,7 @@ data "ipsw" "bigsur" {
 
 data "ipsw" "bigsur-beta" {
   os = "macOS"
-  version = "~13-0"
+  version = "^13-0"
   device = "VirtualMac2,1"
 
   offline = true
