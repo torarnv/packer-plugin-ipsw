@@ -55,7 +55,7 @@ To fetch information about the latest macOS Big Sur release:
 ```hcl
 data "ipsw" "bigsur" {
   os = "macOS"
-  version = "13"
+  version = "^13"
   device = "VirtualMac2,1"
 }
 ```
