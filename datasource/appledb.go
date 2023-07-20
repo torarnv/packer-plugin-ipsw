@@ -147,9 +147,8 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
                     }
                 }
                 for _, link := range source.Links {
-                    if link.Active && link.Preferred {
+                    if link.Active && (url == "" || link.Preferred) {
                         url = link.URL
-                        break
                     }
                 }
             }
