@@ -21,7 +21,7 @@ Then, run [`packer init`](https://www.packer.io/docs/commands/init).
 packer {
   required_plugins {
     ipsw = {
-      version = ">= 0.0.1"
+      version = ">= 0.0.2"
       source  = "github.com/torarnv/ipsw"
     }
   }
@@ -55,7 +55,7 @@ To fetch information about the latest macOS Big Sur release:
 ```hcl
 data "ipsw" "bigsur" {
   os = "macOS"
-  version = "^13"
+  version = "13"
   device = "VirtualMac2,1"
 }
 ```
