@@ -30,6 +30,12 @@ jobs:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.1.1
 
+      - name: Manage Go dependencies
+        run: go mod tidy && git diff --exit-code && go mod download && go mod verify
+
+      - name: Test
+        run: make check
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:

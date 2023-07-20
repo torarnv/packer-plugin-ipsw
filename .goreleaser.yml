@@ -1,17 +1,6 @@
 env:
   - CGO_ENABLED=0
 
-before:
-  hooks:
-    - cmd: go mod tidy && git diff --exit-code
-      output: true
-    - cmd: go mod download
-      output: true
-    - cmd: go mod verify
-      output: true
-    - cmd: make check
-      output: true
-
 builds:
   -
     mod_timestamp: '{{ .CommitTimestamp }}'
