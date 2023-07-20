@@ -121,6 +121,11 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
             version := strings.Replace(osFile.Version, " ", "-", 1)
             version = strings.Replace(version, " ", ".", -1)
             semVer, err := semver.NewVersion(version)
+            if err != nil {
+                log.Printf("Skipping un-parsable version %s", osFile.Version)
+                return nil
+            }
+
             if osFile.Beta && semVer.Prerelease() == "" {
                 *semVer, _ = semVer.SetPrerelease("beta")
             }
