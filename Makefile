@@ -7,14 +7,15 @@ PROJECT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 # Generate
 
-.PHONY: generate
-generate:
-	@go generate ./...
+HCL2_SOURCES := $(shell grep -r -l "go:generate.*mapstructure-to-hcl2" **/*.go)
+HCL2_GENERATED = $(HCL2_SOURCES:.go=.hcl2spec.go)
+$(HCL2_GENERATED): %.hcl2spec.go : %.go
+	@go generate -run="hcl2" $<
 
 # Build & Install
 
 .PHONY: build
-build:
+build: $(HCL2_GENERATED)
 	@go build -o $(BINARY)
 
 .PHONY: install

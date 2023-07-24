@@ -1,2 +1,3 @@
 packer-plugin-ipsw
 dist/
+**/*.hcl2spec.go
