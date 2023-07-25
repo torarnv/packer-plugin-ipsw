@@ -32,7 +32,7 @@ acceptance-test: export PKR_VAR_appledb_test_path = $(PROJECT_DIR)/datasource/te
 acceptance-test: export PACKER_ACC = 1
 acceptance-test: export PACKER_PLUGIN_PATH = $(PROJECT_DIR)
 acceptance-test: build
-	@go test -count 1 -v $(shell find . | grep acc_test) -timeout=120m
+	@go test -count 1 -v $(shell find . | grep _test.go) -timeout=120m
 
 PACKER_SDC := go run github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc
 plugin-check: build
