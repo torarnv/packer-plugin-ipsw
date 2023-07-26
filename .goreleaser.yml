@@ -57,4 +57,4 @@ release:
   - glob: ./docs.zip
 
 changelog:
-  skip: true
+  use: github-native
