@@ -23,18 +23,18 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - name: Describe plugin
-        id: plugin_describe
-        run: echo "api_version=$(go run . describe | jq -r '.api_version')" >> $GITHUB_OUTPUT
+      - name: Manage Go dependencies
+        run: go mod tidy && git diff --exit-code && go mod download && go mod verify
+
+      - name: Build and test
+        run: make check
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.1.1
 
-      - name: Manage Go dependencies
-        run: go mod tidy && git diff --exit-code && go mod download && go mod verify
-
-      - name: Test
-        run: make check
+      - name: Determine API version
+        id: plugin_describe
+        run: echo "api_version=$(go run . describe | jq -r '.api_version')" >> $GITHUB_OUTPUT
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
