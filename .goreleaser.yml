@@ -53,6 +53,8 @@ signs:
     output: true
 
 release:
+  extra_files:
+  - glob: ./docs.zip
 
 changelog:
   skip: true

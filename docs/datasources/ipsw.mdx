@@ -1,0 +1,48 @@
+---
+description: >
+  The IPSW data source provides information about Apple IPSW releases
+  based on the filter options provided in the configuration.
+page_title: IPSW - Data Sources
+nav_title: IPSW
+---
+
+# IPSW
+
+Type: `ipsw`
+
+The IPSW data source will fetch and filter information about
+[Apple device firmware](https://en.wikipedia.org/wiki/IPSW)
+releases from [AppleDB](https://appledb.dev/), providing release
+data and IPSW URLs for builders such as [Tart](https://github.com/cirruslabs/packer-plugin-tart).
+
+## Usage
+
+To fetch information about the latest macOS Big Sur release:
+
+```hcl
+data "ipsw" "bigsur" {
+  os = "macOS"
+  version = "^13"
+  device = "VirtualMac2,1"
+}
+```
+
+Then use result via e.g. `${data.ipsw.bigsur.version}` and `${data.ipsw.bigsur.url}`.
+
+## Configuration
+
+### Required
+
+@include 'datasource/Config-required.mdx'
+
+### Optional
+
+@include 'datasource/Config-not-required.mdx'
+
+## Output
+
+@include 'datasource/DatasourceOutput.mdx'
+
+### Version components
+
+@include 'datasource/VersionComponents-not-required.mdx'

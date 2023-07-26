@@ -2,8 +2,8 @@ NAME=ipsw
 BINARY=packer-plugin-$(NAME)
 
 PROJECT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
-
 .DEFAULT_GOAL = build
+PACKER_SDC := go run github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc
 
 # Generate
 
@@ -34,7 +34,6 @@ acceptance-test: export PACKER_PLUGIN_PATH = $(PROJECT_DIR)
 acceptance-test: build
 	@go test -count 1 -v $(shell find . | grep _test.go) -timeout=120m
 
-PACKER_SDC := go run github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc
 plugin-check: build
 	@$(PACKER_SDC) plugin-check $(BINARY)
 
@@ -43,3 +42,16 @@ plugin-check: build
 .PHONY: clean
 clean:
 	@rm -f $(BINARY) crash.log
+
+# Docs
+
+DOC_SOURCES := $(shell grep -r -l "go:generate.*struct-markdown" **/*.go)
+DOC_GENERATED = docs-partials
+$(DOC_GENERATED): $(DOC_SOURCES)
+	@go generate -run="markdown" $(DOC_SOURCES)
+
+.PHONY: docs
+docs: $(DOC_GENERATED)
+	@rm -Rf build/docs/
+	@$(PACKER_SDC) renderdocs -src docs/ -partials docs-partials/ -dst build/docs/
+	@cd build && zip -r -o ../docs.zip docs/

@@ -3,6 +3,7 @@
 
 //go:generate -command packer-sdc go run github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput,VersionComponents
+//go:generate packer-sdc struct-markdown
 
 package ipsw
 
@@ -25,13 +26,26 @@ type Datasource struct {
 }
 
 type Config struct {
+    // The operating system to filter on, e.g. `macOS`.
     OS                 string `mapstructure:"os" required:"true"`
+    // The version to filter on. Semantic version conditions such
+    // as `>= 12.2` or `~13.1` are supported. To include beta releases
+    // in the search, use the `-0` prerelease constraint, e.g.
+    // `^14-0` for the latest macOS 14 beta.
     Version            string `mapstructure:"version" required:"true"`
+    // The device identifier to filter on, e.g. `VirtualMac2,1`.
     Device             string `mapstructure:"device" required:"true"`
 
-    Offline              bool `mapstructure:"offline"`
+    // The AppleDB Git URL to use for fetching release information.
+    // Defaults to `https://github.com/littlebyteorg/appledb.git`.
     AppleDBGitURL      string `mapstructure:"appledb_git_url"`
+    // The AppleDB local file path. Used as Git clone destination,
+    // or for a pre-populated offline database.
     AppleDBLocalPath   string `mapstructure:"appledb_local_path"`
+    // Set this property to `true` to skip fetching new
+    // releases. Requires a valid AppleDB file structure in
+    // `appledb_local_path`.
+    Offline              bool `mapstructure:"offline"`
 
     versionConstraints semver.Constraints
 }
@@ -74,22 +88,36 @@ func (d *Datasource) Configure(raws ...interface{}) error {
 }
 
 type DatasourceOutput struct {
+    // The operating system of the resulting release.
     OS                string `mapstructure:"os"`
+    // The version of the resulting release, in full semantic version format.
+    // To use individual components of the version, see `version_components`.
     Version           string `mapstructure:"version"`
+    // The build identifier of the release. Also available as `metadata`
+    // of the `version_components` field.
     Build             string `mapstructure:"build"`
+    // The release date of the release.
     Released          string `mapstructure:"released"`
+    // A boolean value reflecting whether the release is a beta release or not.
     Beta              bool   `mapstructure:"beta"`
+    // The URL of the IPSW file for the release.
     URL               string `mapstructure:"url"`
+    // Individual components of the `version` field.
     VersionComponents *VersionComponents `mapstructure:"version_components"`
 
     semVer            *semver.Version
 }
 
 type VersionComponents struct {
+    // The major version of the release.
     Major      uint64 `mapstructure:"major"`
+    // The minor version of the release.
     Minor      uint64 `mapstructure:"minor"`
+    // The patch version of the release.
     Patch      uint64 `mapstructure:"patch"`
+    // The prerelease tag of the release, e.g. `beta.2`.
     Prerelease string `mapstructure:"prerelease"`
+    // The metadata of the release, e.g. the build identifier.
     Metadata   string `mapstructure:"metadata"`
 }
 

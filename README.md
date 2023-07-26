@@ -62,6 +62,11 @@ data "ipsw" "bigsur" {
 
 Then use result via e.g. `${data.ipsw.bigsur.version}` and `${data.ipsw.bigsur.url}`.
 
+## Configuration
+
+For more information on how to configure the plugin, please read the
+documentation located [here](https://developer.hashicorp.com/packer/plugins/datasources/ipsw).
+
 ## Contributing
 
 * If you think you've found a bug in the code or you have a question regarding
