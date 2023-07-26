@@ -41,7 +41,7 @@ plugin-check: build
 
 .PHONY: clean
 clean:
-	@rm -f $(BINARY) crash.log
+	@rm -Rf $(BINARY) $(HCL2_GENERATED) $(DOC_GENERATED) crash.log build/ dist/ docs.zip
 
 # Docs
 
