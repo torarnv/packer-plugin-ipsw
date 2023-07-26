@@ -10,7 +10,7 @@ PACKER_SDC := go run github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc
 HCL2_SOURCES := $(shell grep -r -l "go:generate.*mapstructure-to-hcl2" **/*.go)
 HCL2_GENERATED = $(HCL2_SOURCES:.go=.hcl2spec.go)
 $(HCL2_GENERATED): %.hcl2spec.go : %.go
-	@go generate -run="hcl2" $<
+	@go generate -run="-command|hcl2" $<
 
 # Build & Install
 
@@ -48,7 +48,7 @@ clean:
 DOC_SOURCES := $(shell grep -r -l "go:generate.*struct-markdown" **/*.go)
 DOC_GENERATED = docs-partials
 $(DOC_GENERATED): $(DOC_SOURCES)
-	@go generate -run="markdown" $(DOC_SOURCES)
+	@go generate -run="-command|markdown" $(DOC_SOURCES)
 
 .PHONY: docs
 docs: $(DOC_GENERATED)
