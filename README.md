@@ -50,17 +50,17 @@ on [installing a plugin](https://www.packer.io/docs/extending/plugins/#installin
 
 ## Usage
 
-To fetch information about the latest macOS Big Sur release:
+To fetch information about the latest macOS Ventura release:
 
 ```hcl
-data "ipsw" "bigsur" {
+data "ipsw" "ventura" {
   os = "macOS"
   version = "^13"
   device = "VirtualMac2,1"
 }
 ```
 
-Then use result via e.g. `${data.ipsw.bigsur.version}` and `${data.ipsw.bigsur.url}`.
+Then use result via e.g. `${data.ipsw.ventura.version}` and `${data.ipsw.ventura.url}`.
 
 ## Configuration
 
