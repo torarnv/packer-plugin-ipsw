@@ -108,7 +108,8 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
 
             var osFile OsFile
             if err := json.Unmarshal(dat, &osFile); err != nil {
-                return err
+                log.Printf("Skipping %s (%s)", path, err)
+                return nil
             }
 
             if osFile.OS != config.OS {
