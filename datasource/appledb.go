@@ -19,7 +19,7 @@ import (
 
 var (
     AppleDbGitUrl    = "https://github.com/littlebyteorg/appledb.git"
-    AppleDbLocalPath = os.TempDir() + "appledb"
+    AppleDbLocalPath = filepath.Join(os.TempDir(), "appledb")
 )
 
 type OsFileSource struct {
