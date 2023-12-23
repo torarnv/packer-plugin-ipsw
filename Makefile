@@ -12,16 +12,11 @@ HCL2_GENERATED = $(HCL2_SOURCES:.go=.hcl2spec.go)
 $(HCL2_GENERATED): %.hcl2spec.go : %.go
 	@go generate -run="-command|hcl2" $<
 
-# Build & Install
+# Build
 
 .PHONY: build
 build: $(HCL2_GENERATED)
 	@go build -o $(BINARY)
-
-.PHONY: install
-install: build
-	@mkdir -p ~/.packer.d/plugins/
-	@mv $(BINARY) ~/.packer.d/plugins/$(BINARY)
 
 # Test
 
