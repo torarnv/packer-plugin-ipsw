@@ -4,3 +4,4 @@ build/
 **/*.hcl2spec.go
 docs-partials/
 docs.zip
+vendor/
