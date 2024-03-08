@@ -49,4 +49,5 @@ $(DOC_GENERATED): $(DOC_SOURCES)
 docs: $(DOC_GENERATED)
 	@rm -Rf build/docs/
 	@$(PACKER_SDC) renderdocs -src docs/ -partials docs-partials/ -dst build/docs/
-	@cd build && zip -r -o ../docs.zip docs/
+	@cp README.md build/docs/
+	@./.web-docs/scripts/compile-to-webdocs.sh "." "build/docs/" ".web-docs" "<orgname>"
