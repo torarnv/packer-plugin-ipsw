@@ -52,9 +52,5 @@ signs:
     artifacts: checksum
     output: true
 
-release:
-  extra_files:
-  - glob: ./docs.zip
-
 changelog:
   use: github-native
