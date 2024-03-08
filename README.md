@@ -21,7 +21,7 @@ Then, run [`packer init`](https://www.packer.io/docs/commands/init).
 packer {
   required_plugins {
     ipsw = {
-      version = ">= 0.0.9"
+      version = ">= 0.0.10"
       source  = "github.com/torarnv/ipsw"
     }
   }
