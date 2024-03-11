@@ -18,6 +18,21 @@ $(HCL2_GENERATED): %.hcl2spec.go : %.go
 build: $(HCL2_GENERATED)
 	@go build -o $(BINARY)
 
+PACKER_PLUGIN_PATH ?= $(HOME)/.config/packer/plugins
+PLUGIN_INSTALL_PATH = $(PACKER_PLUGIN_PATH)/github.com/torarnv/$(NAME)
+PLUGIN_VERSION=$(shell git describe --tags HEAD | sed 's/v.*-g.*/v1337.0.0/')
+PLUGIN_INSTALL_FILEPATH = $(PLUGIN_INSTALL_PATH)/$(BINARY)_$(PLUGIN_VERSION)_$(API_VERSION)_$(GOOS)_$(GOARCH)
+
+.PHONY: install
+install: export GOOS = darwin
+install: export GOARCH = $(shell arch)
+install: export API_VERSION = 5.0
+install: build
+	@mkdir -p $(PLUGIN_INSTALL_PATH)
+	@cp -c $(BINARY) $(PLUGIN_INSTALL_FILEPATH)
+	@shasum -a 256 $(PLUGIN_INSTALL_FILEPATH) | \
+		cut -d ' ' -f 1 > $(PLUGIN_INSTALL_FILEPATH)_SHA256SUM
+
 # Test
 
 test: check
