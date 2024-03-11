@@ -5,7 +5,6 @@ integration {
   name = "IPSW"
   description = "IPSW plugins for HashiCorp Packer"
   identifier = "packer/torarnv/ipsw"
-  flags = [ "community" ]
   docs {
     process_docs = true
   }
