@@ -78,8 +78,9 @@ func (d *Datasource) Configure(raws ...interface{}) error {
     if err != nil {
         errs = packer.MultiErrorAppend(errs, fmt.Errorf("Could not parse version constraint '%s'",
             d.config.Version))
+    } else {
+        d.config.versionConstraints = *constraints
     }
-    d.config.versionConstraints = *constraints
 
     if errs != nil && len(errs.Errors) > 0 {
         return errs
