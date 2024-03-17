@@ -127,13 +127,17 @@ func (d *Datasource) OutputSpec() hcldec.ObjectSpec {
 }
 
 func (d *Datasource) Execute() (cty.Value, error) {
+    var errs *packer.MultiError
+
     results, err := QueryAppleDB(d.config)
     if err != nil {
-        return cty.NullVal(cty.EmptyObject), err
+        errs = packer.MultiErrorAppend(errs, err)
+        return cty.NullVal(cty.EmptyObject), errs
     }
 
     if len(results) == 0 {
-        return cty.NullVal(cty.EmptyObject), fmt.Errorf("No matching IPSWs for the given filters")
+        errs = packer.MultiErrorAppend(errs, fmt.Errorf("No matching IPSWs for the given filters"))
+        return cty.NullVal(cty.EmptyObject), errs
     }
 
     sort.Sort(results)
