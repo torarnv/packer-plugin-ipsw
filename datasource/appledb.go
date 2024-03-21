@@ -4,9 +4,11 @@
 package ipsw
 
 import (
+    "context"
     "encoding/json"
     "log"
     "os"
+    "os/signal"
     "path/filepath"
     "strings"
 
@@ -61,8 +63,21 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
 
         log.Printf("Fetching latest AppleDB information from %s into %s",
             appleDbGitURL, appleDbPath)
+
+
+        stop := make(chan os.Signal, 1)
+        signal.Notify(stop, os.Interrupt)
+
+        ctx, cancel := context.WithCancel(context.TODO())
+        defer cancel()
+
+        go func() {
+            <-stop
+            cancel()
+        }()
+
         if _, err := os.Stat(appleDbPath); os.IsNotExist(err) {
-            if _, err := git.PlainClone(appleDbPath, false, &git.CloneOptions{
+            if _, err := git.PlainCloneContext(ctx, appleDbPath, false, &git.CloneOptions{
                 URL:           appleDbGitURL,
                 SingleBranch:  true,
                 ReferenceName: "refs/heads/main",

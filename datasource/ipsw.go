@@ -11,6 +11,8 @@ import (
     "fmt"
     "sort"
     "time"
+    "errors"
+    "context"
 
     "github.com/hashicorp/hcl/v2/hcldec"
     "github.com/hashicorp/packer-plugin-sdk/hcl2helper"
@@ -131,6 +133,9 @@ func (d *Datasource) Execute() (cty.Value, error) {
 
     results, err := QueryAppleDB(d.config)
     if err != nil {
+        if errors.Is(err, context.Canceled) {
+            return cty.NullVal(cty.EmptyObject), nil
+        }
         errs = packer.MultiErrorAppend(errs, err)
         return cty.NullVal(cty.EmptyObject), errs
     }
