@@ -68,23 +68,23 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
                 ReferenceName: "refs/heads/main",
                 Progress:      log.Writer(),
             }); err != nil {
-                log.Panic(err)
+                return nil, err
             }
         } else {
             r, err := git.PlainOpen(appleDbPath)
             if err != nil {
-                log.Panic(err)
+                return nil, err
             }
 
             w, err := r.Worktree()
             if err != nil {
-                log.Panic(err)
+                return nil, err
             }
 
             if err = w.Pull(&git.PullOptions{
                 Progress: log.Writer(),
             }); err != nil && err != git.NoErrAlreadyUpToDate {
-                log.Panic(err)
+                return nil, err
             }
         }
     }
