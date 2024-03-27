@@ -33,7 +33,7 @@ jobs:
         run: make docs
 
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v3.1.1
+        uses: sigstore/cosign-installer@v3.4.0
 
       - name: Determine API version
         id: plugin_describe
