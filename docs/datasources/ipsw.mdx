@@ -15,20 +15,6 @@ The IPSW data source will fetch and filter information about
 releases from [AppleDB](https://appledb.dev/), providing release
 data and IPSW URLs for builders such as [Tart](https://github.com/cirruslabs/packer-plugin-tart).
 
-## Usage
-
-To fetch information about the latest macOS Ventura release:
-
-```hcl
-data "ipsw" "ventura" {
-  os = "macOS"
-  version = "^13"
-  device = "VirtualMac2,1"
-}
-```
-
-Then use result via e.g. `${data.ipsw.ventura.version}` and `${data.ipsw.ventura.url}`.
-
 ## Configuration
 
 ### Required

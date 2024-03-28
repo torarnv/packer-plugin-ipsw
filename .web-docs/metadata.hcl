@@ -3,7 +3,7 @@
 
 integration {
   name = "IPSW"
-  description = "IPSW plugins for HashiCorp Packer"
+  description = "The IPSW data source provides information about Apple IPSW releases based on the filter options provided in the configuration."
   identifier = "packer/torarnv/ipsw"
   docs {
     process_docs = true
