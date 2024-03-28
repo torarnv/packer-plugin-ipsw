@@ -5,20 +5,6 @@ The IPSW data source will fetch and filter information about
 releases from [AppleDB](https://appledb.dev/), providing release
 data and IPSW URLs for builders such as [Tart](https://github.com/cirruslabs/packer-plugin-tart).
 
-## Usage
-
-To fetch information about the latest macOS Ventura release:
-
-```hcl
-data "ipsw" "ventura" {
-  os = "macOS"
-  version = "^13"
-  device = "VirtualMac2,1"
-}
-```
-
-Then use result via e.g. `${data.ipsw.ventura.version}` and `${data.ipsw.ventura.url}`.
-
 ## Configuration
 
 ### Required
@@ -33,23 +19,6 @@ Then use result via e.g. `${data.ipsw.ventura.version}` and `${data.ipsw.ventura
   `^14-0` for the latest macOS 14 beta.
 
 - `device` (string) - The device identifier to filter on, e.g. `VirtualMac2,1`.
-
-<!-- End of code generated from the comments of the Config struct in datasource/ipsw.go; -->
-
-
-### Optional
-
-<!-- Code generated from the comments of the Config struct in datasource/ipsw.go; DO NOT EDIT MANUALLY -->
-
-- `appledb_git_url` (string) - The AppleDB Git URL to use for fetching release information.
-  Defaults to `https://github.com/littlebyteorg/appledb.git`.
-
-- `appledb_local_path` (string) - The AppleDB local file path. Used as Git clone destination,
-  or for a pre-populated offline database.
-
-- `offline` (bool) - Set this property to `true` to skip fetching new
-  releases. Requires a valid AppleDB file structure in
-  `appledb_local_path`.
 
 <!-- End of code generated from the comments of the Config struct in datasource/ipsw.go; -->
 
