@@ -39,6 +39,8 @@ data and IPSW URLs for builders such as [Tart](https://github.com/cirruslabs/pac
 
 - `beta` (bool) - A boolean value reflecting whether the release is a beta release or not.
 
+- `rc` (bool) - A boolean value reflecting whether the release is an RC release or not.
+
 - `url` (string) - The URL of the IPSW file for the release.
 
 - `version_components` (\*VersionComponents) - Individual components of the `version` field.

@@ -44,6 +44,7 @@ type OsFile struct {
     Build     string         `json:"build"`
     Released  string         `json:"released"`
     Beta      bool           `json:"beta"`
+    RC        bool           `json:"rc"`
     DeviceMap []string       `json:"deviceMap"`
     Sources   []OsFileSource `json:"sources"`
 }
@@ -102,6 +103,9 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
         if osFile.Beta && semVer.Prerelease() == "" {
             *semVer, _ = semVer.SetPrerelease("beta")
         }
+        if osFile.RC && semVer.Prerelease() == "" {
+            *semVer, _ = semVer.SetPrerelease("rc")
+        }
         if !config.versionConstraints.Check(semVer) {
             continue
         }
@@ -136,6 +140,7 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
             Build:    osFile.Build,
             Released: osFile.Released,
             Beta:     osFile.Beta,
+            RC:       osFile.RC,
             URL:      url,
             semVer:   semVer,
         })

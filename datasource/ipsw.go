@@ -92,6 +92,8 @@ type DatasourceOutput struct {
     Released          string `mapstructure:"released"`
     // A boolean value reflecting whether the release is a beta release or not.
     Beta              bool   `mapstructure:"beta"`
+    // A boolean value reflecting whether the release is an RC release or not.
+    RC                bool   `mapstructure:"rc"`
     // The URL of the IPSW file for the release.
     URL               string `mapstructure:"url"`
     // Individual components of the `version` field.
