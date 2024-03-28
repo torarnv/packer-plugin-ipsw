@@ -38,17 +38,6 @@ type Config struct {
     // The device identifier to filter on, e.g. `VirtualMac2,1`.
     Device             string `mapstructure:"device" required:"true"`
 
-    // The AppleDB Git URL to use for fetching release information.
-    // Defaults to `https://github.com/littlebyteorg/appledb.git`.
-    AppleDBGitURL      string `mapstructure:"appledb_git_url"`
-    // The AppleDB local file path. Used as Git clone destination,
-    // or for a pre-populated offline database.
-    AppleDBLocalPath   string `mapstructure:"appledb_local_path"`
-    // Set this property to `true` to skip fetching new
-    // releases. Requires a valid AppleDB file structure in
-    // `appledb_local_path`.
-    Offline              bool `mapstructure:"offline"`
-
     versionConstraints semver.Constraints
 }
 

@@ -1,26 +1,16 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-variable "appledb_test_path" {
-  type = string
-}
-
 data "ipsw" "ventura" {
   os = "macOS"
-  version = "^13"
+  version = "13.4"
   device = "VirtualMac2,1"
-
-  offline = true
-  appledb_local_path = var.appledb_test_path
 }
 
 data "ipsw" "ventura-beta" {
   os = "macOS"
-  version = "^13-0"
+  version = "13.5.0-beta.5"
   device = "VirtualMac2,1"
-
-  offline = true
-  appledb_local_path = var.appledb_test_path
 }
 
 source "null" "basic-example" {
