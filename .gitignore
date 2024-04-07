@@ -5,3 +5,4 @@ build/
 docs-partials/
 docs.zip
 vendor/
+version.go

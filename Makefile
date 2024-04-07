@@ -16,6 +16,7 @@ $(HCL2_GENERATED): %.hcl2spec.go : %.go
 
 .PHONY: build
 build: $(HCL2_GENERATED)
+	@go generate main.go
 	@go build -o $(BINARY)
 
 .PHONY: install
