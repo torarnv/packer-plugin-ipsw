@@ -165,7 +165,10 @@ func (o DatasourceOutputs) Swap(i, j int) {
 func (o DatasourceOutputs) Less(i, j int) bool {
     v1 := o[i].semVer
     v2 := o[j].semVer
-    if v1.Equal(v2) {
+    // Compare only version number, as we want to fall
+    // back to release date for pre-releases, to avoid
+    // ascii-sorting them.
+    if v1.Major() == v2.Major() && v1.Minor() == v2.Minor() && v1.Patch() == v2.Patch() {
         const dateFormat = "2006-01-02"
         d1, _ := time.Parse(dateFormat, o[i].Released)
         d2, _ := time.Parse(dateFormat, o[j].Released)
