@@ -63,20 +63,20 @@ func (d *Datasource) Configure(raws ...interface{}) error {
         errs = packer.MultiErrorAppend(errs, fmt.Errorf("an 'os' must be provided"))
     }
 
-    if d.config.Version == "" {
-        errs = packer.MultiErrorAppend(errs, fmt.Errorf("a 'version' must be provided"))
-    }
-
     if d.config.Device == "" {
         errs = packer.MultiErrorAppend(errs, fmt.Errorf("a 'device' must be provided"))
     }
 
-    constraints, err := semver.NewConstraint(d.config.Version)
-    if err != nil {
-        errs = packer.MultiErrorAppend(errs, fmt.Errorf("Could not parse version constraint '%s'",
-            d.config.Version))
+    if d.config.Version == "" {
+        errs = packer.MultiErrorAppend(errs, fmt.Errorf("a 'version' must be provided"))
     } else {
-        d.config.versionConstraints = *constraints
+        constraints, err := semver.NewConstraint(d.config.Version)
+        if err != nil {
+            errs = packer.MultiErrorAppend(errs, fmt.Errorf("Could not parse version constraint '%s'",
+                d.config.Version))
+        } else {
+            d.config.versionConstraints = *constraints
+        }
     }
 
     if errs != nil && len(errs.Errors) > 0 {
