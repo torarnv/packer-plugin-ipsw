@@ -149,7 +149,9 @@ func (d *Datasource) Execute() (cty.Value, error) {
     sort.Sort(results)
     var mostRecent = results[len(results)-1]
 
-    mostRecent.Version = mostRecent.semVer.String()
+    versionWithoutMetadata, _ := mostRecent.semVer.SetMetadata("")
+    mostRecent.Version = versionWithoutMetadata.String()
+
     mostRecent.VersionComponents = &VersionComponents{
         Major:      mostRecent.semVer.Major(),
         Minor:      mostRecent.semVer.Minor(),
