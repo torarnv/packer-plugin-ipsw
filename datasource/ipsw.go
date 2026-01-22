@@ -38,6 +38,8 @@ type Config struct {
     // The device identifier to filter on, e.g. `VirtualMac2,1`.
     Device             string `mapstructure:"device" required:"true"`
 
+    Skip                bool  `mapstructure:"skip" required:"false"`
+
     versionConstraints semver.Constraints
 }
 
@@ -49,6 +51,10 @@ func (d *Datasource) Configure(raws ...interface{}) error {
     err := config.Decode(&d.config, nil, raws...)
     if err != nil {
         return err
+    }
+
+    if d.config.Skip {
+        return nil;
     }
 
     var errs *packer.MultiError
@@ -121,6 +127,10 @@ func (d *Datasource) OutputSpec() hcldec.ObjectSpec {
 
 func (d *Datasource) Execute() (cty.Value, error) {
     var errs *packer.MultiError
+
+    if d.config.Skip {
+        return hcl2helper.HCL2ValueFromConfig(nil, d.OutputSpec()), nil
+    }
 
     results, err := QueryAppleDB(d.config)
     if err != nil {
