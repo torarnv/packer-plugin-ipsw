@@ -55,4 +55,4 @@ docs: $(DOC_GENERATED)
 	@rm -Rf build/docs/
 	@$(PACKER_SDC) renderdocs -src docs/ -partials docs-partials/ -dst build/docs/
 	@cp README.md build/docs/
-	@./.web-docs/scripts/compile-to-webdocs.sh "." "build/docs/" ".web-docs" "<orgname>"
+	@./.web-docs/scripts/compile-to-webdocs.sh "." "build/docs" ".web-docs" "<orgname>"
