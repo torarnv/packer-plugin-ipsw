@@ -33,6 +33,8 @@ build {
       "echo '${data.ipsw.ventura.released}' | grep 2023-06-21",
       "echo '${data.ipsw.ventura.beta}' | grep false",
       "echo '${data.ipsw.ventura.url}' | grep 22F82",
+      "echo '${data.ipsw.ventura.hashes.sha1}' | grep 7c71dac63a98c94a0a0d1561adf3355748238bf6",
+      "echo '${data.ipsw.ventura.hashes.sha256}' | grep 5ac144d1661614806d765bc0466d719152e2594c2db3888f1ac02276f5638e98",
     ]
   }
 
@@ -47,6 +49,8 @@ build {
       "echo '${data.ipsw.ventura-beta.released}' | grep 2023-07-10",
       "echo '${data.ipsw.ventura-beta.beta}' | grep true",
       "echo '${data.ipsw.ventura-beta.url}' | grep 22G5072a",
+      "echo '${data.ipsw.ventura-beta.hashes.sha1}' | grep 066dc0e0d029f6147ae3de9244af46856630f975",
+      "echo '${data.ipsw.ventura-beta.hashes.sha256}' | grep 6108c48a59eeac85614b01d278c187703b560cc41f07630fa6bc1fc906472d93",
     ]
   }
 }

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 //go:generate -command packer-sdc go run github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc
-//go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput,VersionComponents
+//go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput,VersionComponents,Hashes
 //go:generate packer-sdc struct-markdown
 
 package ipsw
@@ -104,6 +104,8 @@ type DatasourceOutput struct {
     URL               string `mapstructure:"url"`
     // Individual components of the `version` field.
     VersionComponents *VersionComponents `mapstructure:"version_components"`
+    // Hashes of the IPSW
+    Hashes            *Hashes `mapstructure:"hashes"`
 
     semVer            *semver.Version
 }
@@ -119,6 +121,13 @@ type VersionComponents struct {
     Prerelease string `mapstructure:"prerelease"`
     // The metadata of the release, e.g. the build identifier.
     Metadata   string `mapstructure:"metadata"`
+}
+
+type Hashes struct {
+    // The SHA-256 of the IPSW
+    Sha256 string `mapstructure:"sha256"`
+    // The SHA-1 of the IPSW
+    Sha1   string `mapstructure:"sha1"`
 }
 
 func (d *Datasource) OutputSpec() hcldec.ObjectSpec {

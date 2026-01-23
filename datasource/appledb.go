@@ -114,6 +114,7 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
         }
 
         var url string
+        var urlSource OsFileSource
         for _, source := range osFile.Sources {
             if source.Type != "ipsw" {
                 continue
@@ -126,6 +127,7 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
             for _, link := range source.Links {
                 if link.Active && (url == "" || link.Preferred) {
                     url = link.URL
+                    urlSource = source
                 }
             }
         }
@@ -143,6 +145,10 @@ func QueryAppleDB(config Config) (DatasourceOutputs, error) {
             RC:       osFile.RC,
             URL:      url,
             semVer:   semVer,
+            Hashes:   &Hashes{
+                Sha1: urlSource.Hashes.Sha1,
+                Sha256: urlSource.Hashes.Sha2256,
+            },
         })
 
     }
