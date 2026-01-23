@@ -45,6 +45,8 @@ data and IPSW URLs for builders such as [Tart](https://github.com/cirruslabs/pac
 
 - `version_components` (\*VersionComponents) - Individual components of the `version` field.
 
+- `hashes` (\*Hashes) - Hashes of the IPSW
+
 <!-- End of code generated from the comments of the DatasourceOutput struct in datasource/ipsw.go; -->
 
 
@@ -63,3 +65,14 @@ data and IPSW URLs for builders such as [Tart](https://github.com/cirruslabs/pac
 - `metadata` (string) - The metadata of the release, e.g. the build identifier.
 
 <!-- End of code generated from the comments of the VersionComponents struct in datasource/ipsw.go; -->
+
+
+### Hashes
+
+<!-- Code generated from the comments of the Hashes struct in datasource/ipsw.go; DO NOT EDIT MANUALLY -->
+
+- `sha256` (string) - The SHA-256 of the IPSW
+
+- `sha1` (string) - The SHA-1 of the IPSW
+
+<!-- End of code generated from the comments of the Hashes struct in datasource/ipsw.go; -->
